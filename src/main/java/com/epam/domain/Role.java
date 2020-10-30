@@ -1,4 +1,4 @@
-package epam.domain;
+package com.epam.domain;
 
 public enum Role implements BaseEntity {
     MISSION_SPECIALIST(1L),

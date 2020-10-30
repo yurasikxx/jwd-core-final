@@ -1,4 +1,4 @@
-package epam.domain;
+package com.epam.domain;
 
 public interface BaseEntity {
 

@@ -1,9 +1,10 @@
-package epam.domain;
+package com.epam.domain;
 
 /**
  * Expected fields:
- * id {@link Long} - entity id - required
- * name {@link String} - entity name - required
+ * <p>
+ * id {@link Long} - entity id
+ * name {@link String} - entity name
  */
 public abstract class AbstractBaseEntity implements BaseEntity {
 

@@ -1,4 +1,4 @@
-package epam.domain;
+package com.epam.domain;
 
 public enum Rank implements BaseEntity {
     TRAINEE(1L),
@@ -20,7 +20,7 @@ public enum Rank implements BaseEntity {
     @Override
     public String getName() {
         // todo - via java.lang.enum methods!
-        return null;
+        return name();
     }
 
     public static Role resolveRankById(int id) {
