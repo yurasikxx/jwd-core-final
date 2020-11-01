@@ -1,4 +1,4 @@
-package com.epam.domain;
+package com.epam.jwd.core_final.domain;
 
 /**
  * Expected fields:
