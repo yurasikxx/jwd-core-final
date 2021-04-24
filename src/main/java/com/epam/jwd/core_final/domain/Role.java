@@ -8,6 +8,7 @@ public enum Role implements BaseEntity {
     PILOT(3L),
     COMMANDER(4L);
 
+    private static final String UNKNOWN_ENTITY_MSG = "Unknown entity ID: %s";
     private final Long id;
 
     Role(Long id) {
@@ -24,14 +25,21 @@ public enum Role implements BaseEntity {
      */
     @Override
     public String getName() {
-        return null;
+        return name();
     }
 
     /**
      * todo via java.lang.enum methods!
+     *
      * @throws UnknownEntityException if such id does not exist
      */
     public static Role resolveRoleById(int id) {
-        return null;
+        for (Role role : values()) {
+            if (role.getId() == id) {
+                return role;
+            }
+        }
+        throw new UnknownEntityException(String.format(UNKNOWN_ENTITY_MSG, id));
     }
+
 }

@@ -8,6 +8,7 @@ public enum Rank implements BaseEntity {
     FIRST_OFFICER(3L),
     CAPTAIN(4L);
 
+    private static final String UNKNOWN_ENTITY_MSG = "Unknown entity ID: %s";
     private final Long id;
 
     Rank(Long id) {
@@ -24,7 +25,7 @@ public enum Rank implements BaseEntity {
      */
     @Override
     public String getName() {
-        return null;
+        return name();
     }
 
     /**
@@ -33,6 +34,12 @@ public enum Rank implements BaseEntity {
      * @throws UnknownEntityException if such id does not exist
      */
     public static Rank resolveRankById(int id) {
-        return null;
+        for (Rank rank : values()) {
+            if (rank.getId() == id) {
+                return rank;
+            }
+        }
+        throw new UnknownEntityException(String.format(UNKNOWN_ENTITY_MSG, id));
     }
+
 }

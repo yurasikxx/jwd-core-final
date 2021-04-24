@@ -21,11 +21,11 @@ public final class ApplicationProperties {
     private final String crewFileName;
     private final String missionsFileName;
     private final String spaceshipsFileName;
-    private final Integer fileRefreshRate;
+    private final int fileRefreshRate;
     private final String dateTimeFormat;
 
     public ApplicationProperties(String inputRootDir, String outputRootDir, String crewFileName, String missionsFileName,
-                                 String spaceshipsFileName, Integer fileRefreshRate, String dateTimeFormat) {
+                                 String spaceshipsFileName, int fileRefreshRate, String dateTimeFormat) {
         this.inputRootDir = inputRootDir;
         this.outputRootDir = outputRootDir;
         this.crewFileName = crewFileName;
@@ -55,7 +55,7 @@ public final class ApplicationProperties {
         return spaceshipsFileName;
     }
 
-    public Integer getFileRefreshRate() {
+    public int getFileRefreshRate() {
         return fileRefreshRate;
     }
 
