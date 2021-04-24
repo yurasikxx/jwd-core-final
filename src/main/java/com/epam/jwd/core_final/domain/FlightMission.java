@@ -2,6 +2,7 @@ package com.epam.jwd.core_final.domain;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Expected fields:
@@ -78,6 +79,34 @@ public class FlightMission extends AbstractBaseEntity {
 
     public Planet getTo() {
         return to;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FlightMission that = (FlightMission) o;
+        return distance == that.distance && Objects.equals(name, that.name) && Objects.equals(start, that.start) && Objects.equals(end, that.end) && Objects.equals(assignedSpaceShift, that.assignedSpaceShift) && Objects.equals(assignedCrew, that.assignedCrew) && missionResult == that.missionResult && Objects.equals(from, that.from) && Objects.equals(to, that.to);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, start, end, distance, assignedSpaceShift, assignedCrew, missionResult, from, to);
+    }
+
+    @Override
+    public String toString() {
+        return "FlightMission{" +
+                "name='" + name + '\'' +
+                ", start=" + start +
+                ", end=" + end +
+                ", distance=" + distance +
+                ", assignedSpaceShift=" + assignedSpaceShift +
+                ", assignedCrew=" + assignedCrew +
+                ", missionResult=" + missionResult +
+                ", from=" + from +
+                ", to=" + to +
+                '}';
     }
 
 }
