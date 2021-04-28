@@ -1,17 +1,15 @@
 package com.epam.jwd.core_final.context;
 
 import com.epam.jwd.core_final.context.impl.NassaContext;
-import com.epam.jwd.core_final.exception.InvalidStateException;
-
-import java.util.function.Supplier;
+import com.epam.jwd.core_final.context.impl.NassaMenu;
+import com.epam.jwd.core_final.util.PropertyReader;
 
 public interface Application {
 
-    static ApplicationMenu start() throws InvalidStateException {
-        final Supplier<ApplicationContext> applicationContextSupplier = null; // todo
-        final NassaContext nassaContext = new NassaContext();
-
-        nassaContext.init();
-        return applicationContextSupplier::get;
+    static void start() {
+        PropertyReader.getInstance().readProperties();
+        NassaContext.getInstance().init();
+        NassaMenu.getInstance().handleUserInput();
     }
+
 }

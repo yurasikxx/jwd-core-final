@@ -1,6 +1,7 @@
 package com.epam.jwd.core_final.domain;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,21 +20,20 @@ import java.util.Objects;
  */
 public class FlightMission extends AbstractBaseEntity {
 
-    private final String name;
-    private final LocalDate start;
-    private final LocalDate end;
-    private final long distance;
-    private final Spaceship assignedSpaceShift;
-    private final List<CrewMember> assignedCrew;
-    private final MissionResult missionResult;
-    private final Planet from;
-    private final Planet to;
+    private String missionName;
+    private LocalDate start;
+    private LocalDate end;
+    private Long distance;
+    private Spaceship assignedSpaceShift;
+    private List<CrewMember> assignedCrew;
+    private MissionResult missionResult;
+    private Planet from;
+    private Planet to;
+    private Collection<FlightMission> flightMissions;
 
-    public FlightMission(Long id, String name, String name1, LocalDate start, LocalDate end, long distance,
-                         Spaceship assignedSpaceShift, List<CrewMember> assignedCrew, MissionResult missionResult,
-                         Planet from, Planet to) {
-        super(id, name);
-        this.name = name1;
+    public FlightMission(Long id, String missionName, LocalDate start, LocalDate end, Long distance, Spaceship assignedSpaceShift, List<CrewMember> assignedCrew, MissionResult missionResult, Planet from, Planet to, Collection<FlightMission> flightMissions) {
+        super(id);
+        this.missionName = missionName;
         this.start = start;
         this.end = end;
         this.distance = distance;
@@ -42,11 +42,42 @@ public class FlightMission extends AbstractBaseEntity {
         this.missionResult = missionResult;
         this.from = from;
         this.to = to;
+        this.flightMissions = flightMissions;
     }
 
-    @Override
-    public String getName() {
-        return name;
+
+    public FlightMission(Long id, String missionName, LocalDate start, LocalDate end, Long distance,
+                         MissionResult missionResult, Planet from, Planet to) {
+        super(id);
+        this.missionName = missionName;
+        this.start = start;
+        this.end = end;
+        this.distance = distance;
+        this.missionResult = missionResult;
+        this.from = from;
+        this.to = to;
+    }
+
+    public FlightMission(Long id, String missionName, LocalDate start, LocalDate end, Long distance) {
+        super(id);
+        this.missionName = missionName;
+        this.start = start;
+        this.end = end;
+        this.distance = distance;
+    }
+
+    public FlightMission(Spaceship assignedSpaceShift, Collection<FlightMission> flightMissions) {
+        this.assignedSpaceShift = assignedSpaceShift;
+        this.flightMissions = flightMissions;
+    }
+
+    public FlightMission(List<CrewMember> assignedCrew, Collection<FlightMission> flightMissions) {
+        this.assignedCrew = assignedCrew;
+        this.flightMissions = flightMissions;
+    }
+
+    public String getMissionName() {
+        return missionName;
     }
 
     public LocalDate getStart() {
@@ -57,7 +88,7 @@ public class FlightMission extends AbstractBaseEntity {
         return end;
     }
 
-    public long getDistance() {
+    public Long getDistance() {
         return distance;
     }
 
@@ -81,23 +112,27 @@ public class FlightMission extends AbstractBaseEntity {
         return to;
     }
 
+    public Collection<FlightMission> getFlightMissions() {
+        return flightMissions;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FlightMission that = (FlightMission) o;
-        return distance == that.distance && Objects.equals(name, that.name) && Objects.equals(start, that.start) && Objects.equals(end, that.end) && Objects.equals(assignedSpaceShift, that.assignedSpaceShift) && Objects.equals(assignedCrew, that.assignedCrew) && missionResult == that.missionResult && Objects.equals(from, that.from) && Objects.equals(to, that.to);
+        return Objects.equals(missionName, that.missionName) && Objects.equals(start, that.start) && Objects.equals(end, that.end) && Objects.equals(distance, that.distance) && Objects.equals(assignedSpaceShift, that.assignedSpaceShift) && Objects.equals(assignedCrew, that.assignedCrew) && missionResult == that.missionResult && Objects.equals(from, that.from) && Objects.equals(to, that.to);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, start, end, distance, assignedSpaceShift, assignedCrew, missionResult, from, to);
+        return Objects.hash(missionName, start, end, distance, assignedSpaceShift, assignedCrew, missionResult, from, to);
     }
 
     @Override
     public String toString() {
         return "FlightMission{" +
-                "name='" + name + '\'' +
+                "missionName='" + missionName + '\'' +
                 ", start=" + start +
                 ", end=" + end +
                 ", distance=" + distance +

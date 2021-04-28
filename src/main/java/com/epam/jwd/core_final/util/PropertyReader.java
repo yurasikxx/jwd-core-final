@@ -1,6 +1,8 @@
 package com.epam.jwd.core_final.util;
 
 import com.epam.jwd.core_final.domain.ApplicationProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,11 +10,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public final class PropertyReaderUtil {
+public final class PropertyReader {
 
-    private static final Properties properties = new Properties();
+    private static final Logger LOGGER = LoggerFactory.getLogger(PropertyReader.class);
+    private final Properties properties = new Properties();
 
-    private PropertyReaderUtil() {
+    private PropertyReader() {
+    }
+
+    private static class PropertyReaderHolder {
+        private final static PropertyReader instance = new PropertyReader();
+    }
+
+    public static PropertyReader getInstance() {
+        return PropertyReaderHolder.instance;
     }
 
     /**
@@ -23,9 +34,10 @@ public final class PropertyReaderUtil {
      * as a result - you should populate {@link ApplicationProperties} with corresponding
      * values from property file
      */
-    public static void loadProperties() {
-        final String propertiesFileName = "src" + File.separator + "main" + File.separator + "resources" +
-                File.separator + "application.properties";
+
+    public ApplicationProperties readProperties() {
+        final String propertiesFileName = "." + File.separator + "src" + File.separator + "main" +
+                File.separator + "resources" + File.separator + "application.properties";
 
         InputStream inputStream = null;
 
@@ -33,25 +45,24 @@ public final class PropertyReaderUtil {
             inputStream = new FileInputStream(propertiesFileName);
             properties.load(inputStream);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         } finally {
             try {
                 if (inputStream != null) {
                     inputStream.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage());
             }
         }
-    }
 
-    public static void readProperties() {
-        ApplicationProperties applicationProperties = new ApplicationProperties(
+        return new ApplicationProperties(
                 properties.getProperty("inputRootDir"),
                 properties.getProperty("outputRootDir"),
                 properties.getProperty("crewFileName"),
                 properties.getProperty("missionsFileName"),
                 properties.getProperty("spaceshipsFileName"),
+                properties.getProperty("spacemapFileName"),
                 Integer.parseInt(properties.getProperty("fileRefreshRate")),
                 properties.getProperty("dateTimeFormat")
         );

@@ -1,5 +1,6 @@
 package com.epam.jwd.core_final.domain;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
@@ -10,35 +11,39 @@ import java.util.Objects;
  */
 public class Spaceship extends AbstractBaseEntity {
 
-    private final Map<Role, Short> crew;
-    private final FlightMission flightMission;
-    private final long flightDistance;
-    private boolean isReadyForNextMissions = true;
+    private Map<Role, Short> crew;
+    private Long flightDistance;
+    private Boolean isReadyForNextMissions = true;
+    private Collection<Spaceship> spaceships;
 
-    public Spaceship(Long id, String name, Map<Role, Short> crew, FlightMission flightMission, long flightDistance) {
+    public Spaceship() {
+    }
+
+    public Spaceship(Long id, String name, Map<Role, Short> crew, Long flightDistance) {
         super(id, name);
         this.crew = crew;
-        this.flightMission = flightMission;
         this.flightDistance = flightDistance;
+    }
+
+    public Spaceship(Boolean isReadyForNextMissions, Collection<Spaceship> spaceships) {
+        this.isReadyForNextMissions = isReadyForNextMissions;
+        this.spaceships = spaceships;
     }
 
     public Map<Role, Short> getCrew() {
         return crew;
     }
 
-    public FlightMission getFlightMission() {
-        return flightMission;
-    }
-
-    public long getFlightDistance() {
+    public Long getFlightDistance() {
         return flightDistance;
     }
 
-    public boolean isReadyForNextMissions() {
-        if (MissionResult.FAILED.equals(flightMission.getMissionResult())) {
-            isReadyForNextMissions = false;
-        }
+    public Boolean isReadyForNextMissions() {
         return isReadyForNextMissions;
+    }
+
+    public Collection<Spaceship> getSpaceships() {
+        return spaceships;
     }
 
     @Override
@@ -46,19 +51,18 @@ public class Spaceship extends AbstractBaseEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Spaceship spaceship = (Spaceship) o;
-        return flightDistance == spaceship.flightDistance && isReadyForNextMissions == spaceship.isReadyForNextMissions && Objects.equals(crew, spaceship.crew) && Objects.equals(flightMission, spaceship.flightMission);
+        return Objects.equals(crew, spaceship.crew) && Objects.equals(flightDistance, spaceship.flightDistance) && Objects.equals(isReadyForNextMissions, spaceship.isReadyForNextMissions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(crew, flightMission, flightDistance, isReadyForNextMissions);
+        return Objects.hash(crew, flightDistance, isReadyForNextMissions);
     }
 
     @Override
     public String toString() {
         return "Spaceship{" +
                 "crew=" + crew +
-                ", flightMission=" + flightMission +
                 ", flightDistance=" + flightDistance +
                 ", isReadyForNextMissions=" + isReadyForNextMissions +
                 '}';

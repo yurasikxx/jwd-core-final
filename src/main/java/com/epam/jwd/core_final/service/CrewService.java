@@ -1,8 +1,12 @@
 package com.epam.jwd.core_final.service;
 
-import com.epam.jwd.core_final.criteria.Criteria;
+import com.epam.jwd.core_final.criteria.CrewMemberCriteria;
 import com.epam.jwd.core_final.domain.CrewMember;
+import com.epam.jwd.core_final.exception.EntityExistenceException;
+import com.epam.jwd.core_final.exception.UnableToAssignException;
+import com.epam.jwd.core_final.strategy.impl.CrewReadingStrategy;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,18 +16,19 @@ import java.util.Optional;
  */
 public interface CrewService {
 
-    List<CrewMember> findAllCrewMembers();
+    Collection<CrewMember> findAllCrewMembers();
 
-    List<CrewMember> findAllCrewMembersByCriteria(Criteria<? extends CrewMember> criteria);
+    List<CrewMember> findAllCrewMembersByCriteria(CrewMemberCriteria criteria);
 
-    Optional<CrewMember> findCrewMemberByCriteria(Criteria<? extends CrewMember> criteria);
+    Optional<CrewMember> findCrewMemberByCriteria(CrewMemberCriteria criteria);
 
-    CrewMember updateCrewMemberDetails(CrewMember crewMember);
+    void updateCrewMemberDetails(CrewMember crewMember);
 
     // todo create custom exception for case, when crewMember is not able to be assigned
-    void assignCrewMemberOnMission(CrewMember crewMember) throws RuntimeException;
+    void assignCrewMemberOnMission(CrewMember crewMember) throws UnableToAssignException;
 
     // todo create custom exception for case, when crewMember is not able to be created (for example - duplicate.
-    // crewmember unique criteria - only name!
-    CrewMember createCrewMember(CrewMember spaceship) throws RuntimeException;
+    // crew member unique criteria - only name!
+    List<CrewMember> createCrewMember(CrewReadingStrategy crewReadingStrategy) throws EntityExistenceException;
+
 }

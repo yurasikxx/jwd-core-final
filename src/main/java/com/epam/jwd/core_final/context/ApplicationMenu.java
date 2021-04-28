@@ -1,16 +1,30 @@
 package com.epam.jwd.core_final.context;
 
+import com.epam.jwd.core_final.domain.FlightMission;
+
+import java.io.IOException;
+
 // todo replace Object with your own types
-@FunctionalInterface
 public interface ApplicationMenu {
 
-    ApplicationContext getApplicationContext();
-
-    default Object printAvailableOptions() {
-        return null;
+    default String printAvailableOptions() {
+        return "Print available options";
     }
 
-    default Object handleUserInput(Object o) {
-        return null;
+    default void handleUserInput() {
+        System.out.println("Handle user input");
     }
+
+    void crewMemberOperations(byte operation);
+
+    void spaceshipOperations(byte operation);
+
+    void planetOperations(byte operation);
+
+    void flightMissionOperations(byte operation);
+
+    void writeJSONFile(FlightMission flightMission) throws IOException;
+
+    void readJSONFile() throws IOException;
+
 }

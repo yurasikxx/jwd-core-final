@@ -21,16 +21,18 @@ public final class ApplicationProperties {
     private final String crewFileName;
     private final String missionsFileName;
     private final String spaceshipsFileName;
-    private final int fileRefreshRate;
+    private final String spacemapsFileName;
+    private final Integer fileRefreshRate;
     private final String dateTimeFormat;
 
     public ApplicationProperties(String inputRootDir, String outputRootDir, String crewFileName, String missionsFileName,
-                                 String spaceshipsFileName, int fileRefreshRate, String dateTimeFormat) {
+                                 String spaceshipsFileName, String spacemapsFileName, Integer fileRefreshRate, String dateTimeFormat) {
         this.inputRootDir = inputRootDir;
         this.outputRootDir = outputRootDir;
         this.crewFileName = crewFileName;
         this.missionsFileName = missionsFileName;
         this.spaceshipsFileName = spaceshipsFileName;
+        this.spacemapsFileName = spacemapsFileName;
         this.fileRefreshRate = fileRefreshRate;
         this.dateTimeFormat = dateTimeFormat;
     }
@@ -55,7 +57,11 @@ public final class ApplicationProperties {
         return spaceshipsFileName;
     }
 
-    public int getFileRefreshRate() {
+    public String getSpacemapsFileName() {
+        return spacemapsFileName;
+    }
+
+    public Integer getFileRefreshRate() {
         return fileRefreshRate;
     }
 

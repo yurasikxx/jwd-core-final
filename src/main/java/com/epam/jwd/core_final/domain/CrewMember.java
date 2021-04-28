@@ -1,5 +1,6 @@
 package com.epam.jwd.core_final.domain;
 
+import java.util.Collection;
 import java.util.Objects;
 
 /**
@@ -11,16 +12,23 @@ import java.util.Objects;
  */
 public class CrewMember extends AbstractBaseEntity {
 
-    private final Role role;
-    private final Rank rank;
-    private final FlightMission flightMission;
-    private boolean isReadyToNextMission = true;
+    private Role role;
+    private Rank rank;
+    private Boolean isReadyToNextMission = true;
+    private Collection<CrewMember> crewMembers;
 
-    public CrewMember(Long id, String name, Role role, Rank rank, FlightMission flightMission) {
+    public CrewMember() {
+    }
+
+    public CrewMember(Long id, String name, Role role, Rank rank) {
         super(id, name);
         this.role = role;
         this.rank = rank;
-        this.flightMission = flightMission;
+    }
+
+    public CrewMember(Boolean isReadyToNextMission, Collection<CrewMember> crewMembers) {
+        this.isReadyToNextMission = isReadyToNextMission;
+        this.crewMembers = crewMembers;
     }
 
     public Role getRole() {
@@ -31,15 +39,12 @@ public class CrewMember extends AbstractBaseEntity {
         return rank;
     }
 
-    public FlightMission getFlightMission() {
-        return flightMission;
+    public Boolean isReadyToNextMission() {
+        return isReadyToNextMission;
     }
 
-    public boolean isReadyToNextMission() {
-        if (MissionResult.FAILED.equals(flightMission.getMissionResult())) {
-            isReadyToNextMission = false;
-        }
-        return isReadyToNextMission;
+    public Collection<CrewMember> getCrewMembers() {
+        return crewMembers;
     }
 
     @Override
@@ -47,12 +52,12 @@ public class CrewMember extends AbstractBaseEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CrewMember that = (CrewMember) o;
-        return isReadyToNextMission == that.isReadyToNextMission && role == that.role && rank == that.rank && Objects.equals(flightMission, that.flightMission);
+        return role == that.role && rank == that.rank && Objects.equals(isReadyToNextMission, that.isReadyToNextMission);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(role, rank, flightMission, isReadyToNextMission);
+        return Objects.hash(role, rank, isReadyToNextMission);
     }
 
     @Override
@@ -60,7 +65,6 @@ public class CrewMember extends AbstractBaseEntity {
         return "CrewMember{" +
                 "role=" + role +
                 ", rank=" + rank +
-                ", flightMission=" + flightMission +
                 ", isReadyToNextMission=" + isReadyToNextMission +
                 '}';
     }

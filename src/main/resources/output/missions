@@ -1,0 +1,40 @@
+{
+  "id" : 1,
+  "name" : null,
+  "missionName" : "NiceMission",
+  "start" : {
+    "year" : 2021,
+    "month" : "APRIL",
+    "monthValue" : 4,
+    "dayOfMonth" : 28,
+    "era" : "CE",
+    "dayOfYear" : 118,
+    "dayOfWeek" : "WEDNESDAY",
+    "leapYear" : false,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "end" : {
+    "year" : 2021,
+    "month" : "APRIL",
+    "monthValue" : 4,
+    "dayOfMonth" : 28,
+    "era" : "CE",
+    "dayOfYear" : 118,
+    "dayOfWeek" : "WEDNESDAY",
+    "leapYear" : false,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "distance" : 100001,
+  "assignedSpaceShift" : null,
+  "assignedCrew" : null,
+  "missionResult" : null,
+  "from" : null,
+  "to" : null,
+  "flightMissions" : null
+}
